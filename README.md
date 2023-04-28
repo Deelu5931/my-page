@@ -7,7 +7,8 @@
 ### trying now
 > - Clanguage
 > - make FPS with Minecraft
-
+### other account
+> [Twitter](https://twitter.com/ryuseidadandan)
 <!--
 **DadandanRyuusei/DadandanRyuusei** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
