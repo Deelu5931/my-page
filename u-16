@@ -1,0 +1,105 @@
+# -*- coding: utf-8 -*-
+require  'CHaserConnect.rb' #呼び出すおまじない
+
+#書き換えない
+target = CHaserConnect.new("test") #()の中好きな名前
+values = Array.new(10)
+random = Random.new #乱数生成
+
+beforeMove = 0
+
+def _aruku(hoko, target)
+    case hoko
+        when 0
+            values = target.walkUp()
+            beforeMove = 0
+        when 3
+            values = target.walkRight()
+            beforeMove = 3
+        when 6
+            values = target.walkDown()
+            beforeMove = 6
+        when 9
+            values = target.walkLeft()
+            beforeMove = 9
+    end
+    return beforeMove
+end
+
+def _susumeru(values)
+    kabe = Array.new(0)
+    for i in 1..9 do
+        if values[i] != 2
+            case i
+                when 2
+                    kabe.push(0)
+                when 4
+                    kabe.push(9)
+                when 6
+                    kabe.push(3)
+                when 8
+                    kabe.push(6)
+            end
+        end
+    end
+    return kabe
+end
+
+def _itemget(values)
+    item = Array.new(0)
+    for a in 1..9 do
+        if values[a] == 3
+            case a
+                when 2
+                    item.push(0)
+                when 4
+                    item.push(9)
+                when 6
+                    item.push(3)
+                when 8
+                    item.push(6)
+            end
+        end
+    end
+    return item
+end
+
+def _susumuhoko(kabe, item, beforeMove)
+    if kabe.size == 1
+        hoko = kabe[0]
+    elsif item.size <= 1
+        hoko = item[0]
+    else
+        beforeMove = (beforeMove + 6) % 12
+        kabe.delete(beforeMove)
+        hoko = kabe.sample
+    end
+    return hoko
+end
+
+#--------ここから--------
+loop do #ここからループ
+
+#--------ここから--------
+    values = target.getReady
+
+    if values[0] == 0
+        break
+    end
+#--------ここまで書き換えない--------
+
+#ここに処理を書く
+
+    kabe = _susumeru(values)
+    item = _itemget(values)
+    hoko = _susumuhoko(kabe, item, beforeMove)
+    beforeMove = _aruku(hoko, target)
+
+#--------ここから--------
+    if values[0] == 0
+        break
+    end
+
+end #ループここまで
+target.close
+#--------ここまで書き換えない--------
